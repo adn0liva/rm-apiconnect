@@ -1,12 +1,23 @@
-import React from 'react'
+import React, { lazy, Suspense } from 'react'
 import Card from 'react-bootstrap/Card'
 import ListGroup from 'react-bootstrap/ListGroup'
+
+const ImageCharacter = (imageRoute) => {
+  return lazy(() => <Card.Img variant='top' src={imageRoute} />)
+}
+
+const ImageLoading = () => {
+  return (<div>Getting image</div>)
+}
 
 const CardCharacter = (props) => {
   const { character } = props
   return (
     <Card style={{ color: 'black' }} className='mb-3'>
       <Card.Header>{character.name}</Card.Header>
+      {/* <Suspense fallback={<ImageLoading />}>
+        <ImageCharacter />
+      </Suspense> */}
       <Card.Img variant='top' src={character.image} />
       <ListGroup variant='flush'>
         <ListGroup.Item>name: {character.name}</ListGroup.Item>

@@ -1,10 +1,9 @@
-import React, { useEffect, lazy, Suspense } from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { getCharacters, loadMore } from '../../redux/characters/thunks'
 import CardCharacter from '../../components/Characters/CardCharacter'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import CardColumns from 'react-bootstrap/CardColumns'
 import './App.css'
 
 const CharacterContainer = props => {

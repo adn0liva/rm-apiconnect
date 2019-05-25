@@ -5,6 +5,12 @@ const GET_CHARACTERS_FAIL = 'GET_CHARACTERS_FAIL'
 const GET_MORE_CHARACTERS = 'GET_MORE_CHARACTERS'
 const GET_MORE_CHARACTERS_SUCCESS = 'GET_MORE_CHARACTERS_SUCCESS'
 const GET_MORE_CHARACTERS_FAIL = 'GET_MORE_CHARACTERS_FAIL'
+const ADD_CHARACTER_TO_FAVORITE = 'ADD_EPISODE_TO_FAVORITE'
+
+export const addCharacterToFavorite = (id) => ({
+  type: ADD_CHARACTER_TO_FAVORITE,
+  payload: { id }
+})
 
 export const getCharactersRequest = () => ({ type: GET_CHARACTERS_REQUEST })
 
@@ -44,7 +50,8 @@ const initialState = {
   maxPage: 25,
   currentPage: 1,
   nextPage: '',
-  error: null
+  error: null,
+  favorites: []
 }
 
 export default (state = initialState, action) => {
@@ -55,21 +62,21 @@ export default (state = initialState, action) => {
         loading: true
       }
     }
-
     case GET_CHARACTERS_SUCCESS: {
       const { next, pages } = action.payload.info
+      // si ya tiene contenido, me estoy moviendo entre containers
+      const newEntities = state.entities.length > 0 ? [...state.entities] : [
+        ...state.entities,
+        ...action.payload.characters
+      ]
       return {
         ...state,
         loading: false,
-        entities: [
-          ...state.entities,
-          ...action.payload.characters
-        ],
+        entities: newEntities,
         nextPage: next,
         maxPage: pages
       }
     }
-
     case GET_CHARACTERS_FAIL: {
       return {
         ...state,
@@ -103,7 +110,13 @@ export default (state = initialState, action) => {
         error: action.payload.error
       }
     }
+    case ADD_CHARACTER_TO_FAVORITE: {
+      return {
+        ...state,
+        favorites: [...state.favorites, action.payload.id]
 
+      }
+    }
     default: return state
   }
 }

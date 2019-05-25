@@ -65,13 +65,15 @@ export default (state = initialState, action) => {
     }
     case GET_EPISODES_SUCCESS: {
       const { next, pages } = action.payload.info
+      // si ya tiene contenido, me estoy moviendo entre containers
+      const newEntities = state.entities.length > 0 ? [...state.entities] : [
+        ...state.entities,
+        ...action.payload.episodes
+      ]
       return {
         ...state,
         loading: false,
-        entities: [
-          ...state.entities,
-          ...action.payload.episodes
-        ],
+        entities: newEntities,
         nextPage: next,
         maxPage: pages
       }

@@ -1,5 +1,8 @@
 import React, { lazy, Suspense } from 'react'
+import { connect } from 'react-redux'
+import { addCharacterToFavorite } from '../../../redux/characters'
 import Card from 'react-bootstrap/Card'
+import Button from 'react-bootstrap/Button'
 import ListGroup from 'react-bootstrap/ListGroup'
 
 const ImageCharacter = (imageRoute) => {
@@ -11,10 +14,18 @@ const ImageLoading = () => {
 }
 
 const CardCharacter = (props) => {
-  const { character } = props
+  const { character, addCharacterToFavorite, favorites } = props
+  const textButton = favorites.includes(character.id) ? '★' : '☆'
   return (
     <Card style={{ color: 'black' }} className='mb-3'>
-      <Card.Header>{character.name}</Card.Header>
+      <Card.Header>
+        {character.name}
+        <Button
+          variant='ligth'
+          className='float-right'
+          onClick={() => addCharacterToFavorite(character.id)}
+        >{textButton}</Button>
+      </Card.Header>
       {/* <Suspense fallback={<ImageLoading />}>
         <ImageCharacter />
       </Suspense> */}
@@ -28,4 +39,18 @@ const CardCharacter = (props) => {
   )
 }
 
-export default CardCharacter
+const mapStateToProps = state => {
+  const {
+    favorites
+  } = state.characters
+
+  return {
+    favorites
+  }
+}
+
+const mapDispatchToProps = {
+  addCharacterToFavorite
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CardCharacter)

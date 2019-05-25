@@ -12,8 +12,7 @@ const EpisodesContainer = (props) => {
     loadMore,
     loading,
     episodes,
-    getEpisodes,
-    addEpisodeToFavorite } = props
+    getEpisodes } = props
 
   useEffect(() => {
     getEpisodes()
@@ -26,7 +25,7 @@ const EpisodesContainer = (props) => {
             {error}
           </Col>
           <Col md={12} xs={12}>
-            <h2>Episodes</h2>
+            <h2>Episodes ({episodes.length})</h2>
           </Col>
           {episodes.map((episode, index) => (
             <Col md={3} key={`col-ch-${index}`}>

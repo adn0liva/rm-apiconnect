@@ -29,7 +29,7 @@ const CharacterContainer = props => {
             {error}
           </Col>
           <Col md={12} xs={12}>
-            <h2>Characters</h2>
+            <h2>Characters ({characters.length})</h2>
           </Col>
           {characters.map((character, index) => (
             <Col md={3} key={`col-ch-${index}`}>

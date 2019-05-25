@@ -1,37 +1,22 @@
-import React, { lazy, Suspense} from 'react'
+import React, { Suspense } from 'react'
 import { BrowserRouter as Router, Route, NavLink, Link, Switch } from 'react-router-dom'
-// import HomeContainer from '../../containers/HomeContainer'
 import Dictionary from '../../components/Dictionary'
-// import AboutContainer from '../../containers/AboutContainer'
-// import CatalogueContainer from '../../containers/CatalogueContainer'
-// import FormAnimalContainer from '../../containers/FormAnimalContainer'
-// import ShowAnimalContainer from '../../containers/ShowAnimalContainer'
 import CharacterContainer from '../../containers/CharacterContainer'
 import EpisodesContainer from '../../containers/EpisodesContainer'
+import AboutContainer from '../../containers/AboutContainer'
+import HomeContainer from '../../containers/HomeContainer'
 // import NotFound from '../../components/errorPages/NotFound'
 
 // botstrap
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 
-// const lenguage = document.documentElement.lang
-// const Dictionary = DictionaryGlobal[lenguage]
-
-const Index = () => <div>index</div> 
-const About = () => <div>about</div> //<AboutContainer /> // lazy(import('../../containers/AboutContainer'))
+const Index = () => <HomeContainer />
+const About = () => <AboutContainer />
 const Episodes = () => <EpisodesContainer />
 const Characters = () => <CharacterContainer />
-// const ShowAnimal = (props) => <div>show</div> //<ShowAnimalContainer {...props} />
-const NotFoundComponent = () => <div>nfound</div> //<NotFound />
+const NotFoundComponent = () => <div>nfound</div>
 const LoadingComponent = () => <div>Loading...</div>
-
-// const WaitingComponent = (Component) => {
-//   return props => (
-//     <Suspense fallback={LoadingComponent}>
-//       <Component {...props} />
-//     </Suspense>
-//   )
-// }
 
 const AppRouter = () => {
   return (

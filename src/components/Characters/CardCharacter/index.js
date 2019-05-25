@@ -1,13 +1,9 @@
-import React, { lazy, Suspense } from 'react'
+import React, { Suspense } from 'react'
 import { connect } from 'react-redux'
 import { addCharacterToFavorite } from '../../../redux/characters'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 import ListGroup from 'react-bootstrap/ListGroup'
-
-const ImageCharacter = (imageRoute) => {
-  return lazy(() => <Card.Img variant='top' src={imageRoute} />)
-}
 
 const ImageLoading = () => {
   return (<div>Getting image</div>)
@@ -21,15 +17,15 @@ const CardCharacter = (props) => {
       <Card.Header>
         {character.name}
         <Button
-          variant='ligth'
+          variant='light'
           className='float-right'
           onClick={() => addCharacterToFavorite(character.id)}
         >{textButton}</Button>
       </Card.Header>
-      {/* <Suspense fallback={<ImageLoading />}>
-        <ImageCharacter />
-      </Suspense> */}
-      <Card.Img variant='top' src={character.image} />
+      <Suspense fallback={<ImageLoading />}>
+        <Card.Img variant='top' src={character.image} />
+      </Suspense>
+      {/* <Card.Img variant='top' src={character.image} /> */}
       <ListGroup variant='flush'>
         <ListGroup.Item>name: {character.name}</ListGroup.Item>
         <ListGroup.Item>species: {character.species}</ListGroup.Item>

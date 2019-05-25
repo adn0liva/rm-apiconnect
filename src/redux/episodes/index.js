@@ -45,6 +45,8 @@ export const getMoreEpisodesFail = (error) => ({
     error
   }
 })
+let localStorage = window.localStorage
+const favoritesStored = localStorage.getItem('favoritesEpisodes') || []
 const initialState = {
   entities: [],
   loading: false,
@@ -52,7 +54,7 @@ const initialState = {
   currentPage: 1,
   nextPage: '',
   error: null,
-  favorites: []
+  favorites: favoritesStored
 }
 
 export default (state = initialState, action) => {
@@ -112,9 +114,11 @@ export default (state = initialState, action) => {
       }
     }
     case ADD_EPISODE_TO_FAVORITE: {
+      const newFavorites = [...state.favorites, action.payload.id]
+      localStorage.setItem('favoritesEpisodes', newFavorites)
       return {
         ...state,
-        favorites: [...state.favorites, action.payload.id]
+        favorites: newFavorites
 
       }
     }

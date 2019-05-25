@@ -44,6 +44,8 @@ export const getMoreCharactersFail = (error) => ({
     error
   }
 })
+let localStorage = window.localStorage
+const favoritesStored = localStorage.getItem('favoritesCharacters') || []
 const initialState = {
   entities: [],
   loading: false,
@@ -51,7 +53,7 @@ const initialState = {
   currentPage: 1,
   nextPage: '',
   error: null,
-  favorites: []
+  favorites: favoritesStored
 }
 
 export default (state = initialState, action) => {
@@ -111,9 +113,11 @@ export default (state = initialState, action) => {
       }
     }
     case ADD_CHARACTER_TO_FAVORITE: {
+      const newFavorites = [...state.favorites, action.payload.id]
+      localStorage.setItem('favoritesCharacters', newFavorites)
       return {
         ...state,
-        favorites: [...state.favorites, action.payload.id]
+        favorites: newFavorites
 
       }
     }

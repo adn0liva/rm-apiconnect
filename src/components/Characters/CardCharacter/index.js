@@ -12,6 +12,7 @@ const ImageLoading = () => {
 const CardCharacter = (props) => {
   const { character, addCharacterToFavorite, favorites } = props
   const textButton = favorites.includes(character.id) ? '★' : '☆'
+
   return (
     <Card style={{ color: 'black' }} className='mb-3'>
       <Card.Header>

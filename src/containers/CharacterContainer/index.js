@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { getCharacters } from '../../redux/characters/thunks'
-import './App.css';
+import { getCharacters, loadMore } from '../../redux/characters/thunks'
+import './App.css'
 
 const CharacterContainer = props => {
   const {
     getCharacters,
     loading,
     characters,
-    error
+    error,
+    maxPage,
+    currentPage,
+    loadMore
   } = props
 
   useEffect(() => {
@@ -16,20 +19,17 @@ const CharacterContainer = props => {
   }, [])
 
   return (
-    <div className="App">
-      <header className="App-header">
+    <div className='App'>
+      <header className='App-header'>
         {error}
 
-        {loading && (
-          <div>
-            IS LOADING...
-          </div>
-        )}
-
-        {!loading && characters.map((character, index) => (
-          <div key={index} style={{marginBottom: '20px'}}>
+        {characters.map((character, index) => (
+          <div key={index} style={{ marginBottom: '20px' }}>
             <div>
              id: {character.id}
+            </div>
+            <div>
+              <img src={character.image} alt={character.name} />
             </div>
             <div>
              name: {character.name}
@@ -42,27 +42,41 @@ const CharacterContainer = props => {
             </div>
           </div>
         ))}
+        {/* {loading && (
+          <div>
+            IS LOADING...
+          </div>
+        )} */}
+        {currentPage < maxPage && (
+          <button onClick={loadMore}>{loading ? 'Is Loading...' : 'Ver más'}</button>
+        )}
+        <br />
       </header>
     </div>
-  );
+  )
 }
 
 const mapStateToProps = state => {
   const {
     loading,
     entities,
-    error
+    error,
+    maxPage,
+    currentPage
   } = state.characters
 
   return {
     loading,
     characters: entities,
-    error
+    error,
+    maxPage,
+    currentPage
   }
 }
- 
+
 const mapDispatchToProps = {
-  getCharacters
+  getCharacters,
+  loadMore
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CharacterContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(CharacterContainer)

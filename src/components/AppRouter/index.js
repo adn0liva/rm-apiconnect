@@ -6,7 +6,7 @@ import EpisodesContainer from '../../containers/EpisodesContainer'
 import AboutContainer from '../../containers/AboutContainer'
 import HomeContainer from '../../containers/HomeContainer'
 // import NotFound from '../../components/errorPages/NotFound'
-
+// ToDo: change favorite add/delete
 // botstrap
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'

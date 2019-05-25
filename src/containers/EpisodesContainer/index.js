@@ -12,7 +12,8 @@ const EpisodesContainer = (props) => {
     loadMore,
     loading,
     episodes,
-    getEpisodes } = props
+    getEpisodes,
+    addEpisodeToFavorite } = props
 
   useEffect(() => {
     getEpisodes()

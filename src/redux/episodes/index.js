@@ -6,6 +6,13 @@ const GET_MORE_EPISODES = 'GET_MORE_EPISODES'
 const GET_MORE_EPISODES_SUCCESS = 'GET_MORE_EPISODES_SUCCESS'
 const GET_MORE_EPISODES_FAIL = 'GET_MORE_EPISODES_FAIL'
 
+const ADD_EPISODE_TO_FAVORITE = 'ADD_EPISODE_TO_FAVORITE'
+
+export const addEpisodeToFavorite = (id) => ({
+  type: ADD_EPISODE_TO_FAVORITE,
+  payload: { id }
+})
+
 export const getEpisodesRequest = () => ({ type: GET_EPISODES_REQUEST })
 
 export const getEpisodesSuccess = (episodes, info) => ({
@@ -44,7 +51,8 @@ const initialState = {
   maxPage: 2,
   currentPage: 1,
   nextPage: '',
-  error: null
+  error: null,
+  favorites: []
 }
 
 export default (state = initialState, action) => {
@@ -55,10 +63,8 @@ export default (state = initialState, action) => {
         loading: true
       }
     }
-
     case GET_EPISODES_SUCCESS: {
       const { next, pages } = action.payload.info
-      console.log(action)
       return {
         ...state,
         loading: false,
@@ -70,7 +76,6 @@ export default (state = initialState, action) => {
         maxPage: pages
       }
     }
-
     case GET_EPISODES_FAIL: {
       return {
         ...state,
@@ -104,7 +109,13 @@ export default (state = initialState, action) => {
         error: action.payload.error
       }
     }
+    case ADD_EPISODE_TO_FAVORITE: {
+      return {
+        ...state,
+        favorites: [...state.favorites, action.payload.id]
 
+      }
+    }
     default: return state
   }
 }

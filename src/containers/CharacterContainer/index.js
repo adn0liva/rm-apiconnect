@@ -1,6 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, lazy, Suspense } from 'react'
 import { connect } from 'react-redux'
 import { getCharacters, loadMore } from '../../redux/characters/thunks'
+import CardCharacter from '../../components/Characters/CardCharacter'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+import CardColumns from 'react-bootstrap/CardColumns'
 import './App.css'
 
 const CharacterContainer = props => {
@@ -21,34 +25,22 @@ const CharacterContainer = props => {
   return (
     <div className='App'>
       <header className='App-header'>
-        {error}
+        <Row className='mx-0'>
+          <Col md={12}>
+            {error}
+          </Col>
+          <Col md={12} xs={12}>
+            <h2>Characters</h2>
+          </Col>
+          {characters.map((character, index) => (
+            <Col md={3} key={`col-ch-${index}`}>
+              <CardCharacter key={`ch-id${index}`} character={character} />
+            </Col>
+          ))}
+        </Row>
 
-        {characters.map((character, index) => (
-          <div key={index} style={{ marginBottom: '20px' }}>
-            <div>
-             id: {character.id}
-            </div>
-            <div>
-              <img src={character.image} alt={character.name} />
-            </div>
-            <div>
-             name: {character.name}
-            </div>
-            <div>
-             species: {character.species}
-            </div>
-            <div>
-             origin: {character.origin.name}
-            </div>
-          </div>
-        ))}
-        {/* {loading && (
-          <div>
-            IS LOADING...
-          </div>
-        )} */}
         {currentPage < maxPage && (
-          <button onClick={loadMore}>{loading ? 'Is Loading...' : 'Ver más'}</button>
+          <button onClick={loadMore} className='btn btn-sm btn-primary'>{loading ? 'Is Loading...' : 'Ver más'}</button>
         )}
         <br />
       </header>

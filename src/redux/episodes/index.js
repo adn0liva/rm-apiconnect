@@ -6,10 +6,10 @@ const GET_MORE_EPISODES = 'GET_MORE_EPISODES'
 const GET_MORE_EPISODES_SUCCESS = 'GET_MORE_EPISODES_SUCCESS'
 const GET_MORE_EPISODES_FAIL = 'GET_MORE_EPISODES_FAIL'
 
-const ADD_EPISODE_TO_FAVORITE = 'ADD_EPISODE_TO_FAVORITE'
+const TOGGLE_EPISODE_TO_FAVORITE = 'TOGGLE_EPISODE_TO_FAVORITE'
 
-export const addEpisodeToFavorite = (id) => ({
-  type: ADD_EPISODE_TO_FAVORITE,
+export const toggleEpisodeToFavorite = (id) => ({
+  type: TOGGLE_EPISODE_TO_FAVORITE,
   payload: { id }
 })
 
@@ -45,6 +45,16 @@ export const getMoreEpisodesFail = (error) => ({
     error
   }
 })
+
+const modifyFavorites = (list, id) => {
+  let newFavorites = []
+  if (list.includes(id)) {
+    newFavorites = list.filter(id_ => id_ !== id)
+  } else {
+    newFavorites = [...list, id]
+  }
+  return newFavorites
+}
 let localStorage = window.localStorage
 const favoritesStored = localStorage.getItem('favoritesEpisodes') || []
 const initialState = {
@@ -54,7 +64,7 @@ const initialState = {
   currentPage: 1,
   nextPage: '',
   error: null,
-  favorites: favoritesStored
+  favorites: [...favoritesStored.split(',')]
 }
 
 export default (state = initialState, action) => {
@@ -113,8 +123,8 @@ export default (state = initialState, action) => {
         error: action.payload.error
       }
     }
-    case ADD_EPISODE_TO_FAVORITE: {
-      const newFavorites = [...state.favorites, action.payload.id]
+    case TOGGLE_EPISODE_TO_FAVORITE: {
+      const newFavorites = modifyFavorites(state.favorites, action.payload.id.toString())
       localStorage.setItem('favoritesEpisodes', newFavorites)
       return {
         ...state,

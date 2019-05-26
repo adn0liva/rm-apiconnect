@@ -1,21 +1,21 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { addEpisodeToFavorite } from '../../../redux/episodes'
+import { toggleEpisodeToFavorite } from '../../../redux/episodes'
 import Card from 'react-bootstrap/Card'
 import ListGroup from 'react-bootstrap/ListGroup'
 import Button from 'react-bootstrap/Button'
 
 const CardEpisode = (props) => {
-  const { episode, addEpisodeToFavorite, favorites } = props
-  const textButton = favorites.includes(episode.id) ? '★' : '☆'
+  const { episode, toggleEpisodeToFavorite, favorites } = props
+  const textButton = favorites.includes(episode.id.toString()) ? '★' : '☆'
   return (
     <Card style={{ color: 'black' }} className='mb-3'>
       <Card.Header>
         {episode.name}
         <Button
-          variant='ligth'
+          variant='warning'
           className='float-right'
-          onClick={() => addEpisodeToFavorite(episode.id)}
+          onClick={() => toggleEpisodeToFavorite(episode.id)}
         >{textButton}</Button>
       </Card.Header>
       <ListGroup variant='flush'>
@@ -38,7 +38,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-  addEpisodeToFavorite
+  toggleEpisodeToFavorite
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CardEpisode)

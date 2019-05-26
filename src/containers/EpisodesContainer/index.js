@@ -35,7 +35,9 @@ const EpisodesContainer = (props) => {
         </Row>
 
         {currentPage < maxPage && (
-          <button onClick={loadMore} className='btn btn-sm btn-primary'>{loading ? 'Is Loading...' : 'Ver más'}</button>
+          <button onClick={loadMore} className='btn btn-sm btn-primary'>
+            {loading ? (<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true' />) : 'Ver más'}
+          </button>
         )}
         <br />
       </header>

@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react'
 import { connect } from 'react-redux'
-import { addCharacterToFavorite } from '../../../redux/characters'
+import { toggleCharacterToFavorite } from '../../../redux/characters'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 import ListGroup from 'react-bootstrap/ListGroup'
@@ -10,27 +10,26 @@ const ImageLoading = () => {
 }
 
 const CardCharacter = (props) => {
-  const { character, addCharacterToFavorite, favorites } = props
-  const textButton = favorites.includes(character.id) ? '★' : '☆'
+  const { character, toggleCharacterToFavorite, favorites } = props
+  const textButton = favorites.includes(character.id.toString()) ? '★' : '☆'
 
   return (
     <Card style={{ color: 'black' }} className='mb-3'>
-      <Card.Header>
-        {character.name}
-        <Button
-          variant='light'
-          className='float-right'
-          onClick={() => addCharacterToFavorite(character.id)}
-        >{textButton}</Button>
-      </Card.Header>
       <Suspense fallback={<ImageLoading />}>
         <Card.Img variant='top' src={character.image} />
+        <Card.ImgOverlay>
+          <Card.Text className='float-right'>
+            <Button
+              variant='warning'
+              onClick={() => toggleCharacterToFavorite(character.id.toString())}
+            >{textButton}</Button>
+          </Card.Text>
+        </Card.ImgOverlay>
       </Suspense>
-      {/* <Card.Img variant='top' src={character.image} /> */}
       <ListGroup variant='flush'>
-        <ListGroup.Item>name: {character.name}</ListGroup.Item>
-        <ListGroup.Item>species: {character.species}</ListGroup.Item>
-        <ListGroup.Item>origin: {character.origin.name}</ListGroup.Item>
+        <ListGroup.Item>Name: {character.name}</ListGroup.Item>
+        <ListGroup.Item>Species: {character.species}</ListGroup.Item>
+        <ListGroup.Item>Origin: {character.origin.name}</ListGroup.Item>
       </ListGroup>
     </Card>
   )
@@ -47,7 +46,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-  addCharacterToFavorite
+  toggleCharacterToFavorite
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CardCharacter)

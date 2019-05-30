@@ -65,7 +65,7 @@ const initialState = {
   currentPage: 1,
   nextPage: '',
   error: null,
-  favorites: [favArray]
+  favorites: [...favArray]
 }
 
 export default (state = initialState, action) => {

@@ -4,9 +4,10 @@ import { toggleCharacterToFavorite } from '../../../redux/characters'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 import ListGroup from 'react-bootstrap/ListGroup'
+import nullRick from '../../../assets/images/null-rick.jpeg'
 
 const ImageLoading = () => {
-  return (<div>Getting image</div>)
+  return (<img src={nullRick}></img>)
 }
 
 const CardCharacter = (props) => {

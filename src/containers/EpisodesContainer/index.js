@@ -19,28 +19,27 @@ const EpisodesContainer = (props) => {
   }, [])
   return (
     <div className='App'>
-      <header className='App-header'>
-        <Row className='mx-0'>
-          <Col md={12}>
-            {error}
+      <Row className='mx-0'>
+        <Col md={12}>
+          {error}
+        </Col>
+        <Col md={12} xs={12}>
+          <h2>Episodes ({episodes.length})</h2>
+        </Col>
+        {episodes.map((episode, index) => (
+          <Col md={3} key={`col-ch-${index}`}>
+            <CardEpisode key={`ch-id${index}`} episode={episode} />
           </Col>
-          <Col md={12} xs={12}>
-            <h2>Episodes ({episodes.length})</h2>
-          </Col>
-          {episodes.map((episode, index) => (
-            <Col md={3} key={`col-ch-${index}`}>
-              <CardEpisode key={`ch-id${index}`} episode={episode} />
-            </Col>
-          ))}
-        </Row>
+        ))}
+      </Row>
 
-        {currentPage < maxPage && (
-          <button onClick={loadMore} className='btn btn-sm btn-primary'>
-            {loading ? (<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true' />) : 'Ver más'}
-          </button>
-        )}
-        <br />
-      </header>
+      {currentPage < maxPage && (
+        <button onClick={loadMore} className='btn btn-sm btn-primary'>
+          {loading ? (<span className='spinner-border spinner-border-sm' role='status' aria-hidden='true' />) : 'Ver más'}
+        </button>
+      )}
+      <br />
+      <br />
     </div>
   )
 }

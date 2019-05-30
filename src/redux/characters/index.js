@@ -55,7 +55,8 @@ const modifyFavorites = (list, id) => {
 }
 
 let localStorage = window.localStorage
-const favoritesStored = localStorage.getItem('favoritesCharacters') || []
+const favoritesStored = localStorage.getItem('favoritesCharacters') || ''
+const favArray = favoritesStored.split(',').filter(el => (el !== ""))
 const initialState = {
   entities: [],
   loading: false,
@@ -63,7 +64,7 @@ const initialState = {
   currentPage: 1,
   nextPage: '',
   error: null,
-  favorites: [...favoritesStored.split(',')]
+  favorites: [...favArray]
 }
 
 export default (state = initialState, action) => {

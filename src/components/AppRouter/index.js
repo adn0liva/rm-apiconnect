@@ -1,4 +1,5 @@
 import React, { Suspense } from 'react'
+import { connect } from 'react-redux'
 import { BrowserRouter as Router, Route, NavLink, Link, Switch } from 'react-router-dom'
 import Dictionary from '../../components/Dictionary'
 import CharacterContainer from '../../containers/CharacterContainer'
@@ -18,7 +19,9 @@ const Characters = () => <CharacterContainer />
 const NotFoundComponent = () => <div>nfound</div>
 const LoadingComponent = () => <div>Loading...</div>
 
-const AppRouter = () => {
+const AppRouter = (props) => {
+  // const [userLogged,setUserLogged] = useState(true)
+  const { userLogged } = props
   return (
     <Router>
       <div className='main-container'>
@@ -28,27 +31,62 @@ const AppRouter = () => {
           </Navbar.Brand>
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
-            <Nav className='mr-auto'>
-              <NavLink activeClassName='active' to='/home' className='nav-link'>{Dictionary.home}</NavLink>
-              <NavLink activeClassName='active' to='/episodes' className='nav-link'>Episodes</NavLink>
-              <NavLink activeClassName='active' to='/characters' className='nav-link'>Characters</NavLink>
-              <NavLink activeClassName='active' to='/about' className='nav-link'>{Dictionary.about}</NavLink>
-            </Nav>
+            {!userLogged && (
+              <Nav className='mr-auto'>
+                <NavLink activeClassName='active' to='/home' className='nav-link'>{Dictionary.home}</NavLink>
+                {/* <NavLink activeClassName='active' to='/episodes' className='nav-link'>Episodes</NavLink>
+                <NavLink activeClassName='active' to='/characters' className='nav-link'>Characters</NavLink> */}
+                <NavLink activeClassName='active' to='/about' className='nav-link'>{Dictionary.about}</NavLink>
+              </Nav>
+            )}
+            {userLogged && (
+              <Nav className='mr-auto'>
+                <NavLink activeClassName='active' to='/home' className='nav-link'>{Dictionary.home}</NavLink>
+                <NavLink activeClassName='active' to='/episodes' className='nav-link'>Episodes</NavLink>
+                <NavLink activeClassName='active' to='/characters' className='nav-link'>Characters</NavLink>
+                <NavLink activeClassName='active' to='/about' className='nav-link'>{Dictionary.about}</NavLink>
+              </Nav>
+            )}
           </Navbar.Collapse>
         </Navbar>
         <Suspense fallback={LoadingComponent}>
-          <Switch>
-            <Route path='/' exact component={Index} />
-            <Route path='/home' exact component={Index} />
-            <Route path='/about' exact component={About} />
-            <Route path='/episodes' exact component={Episodes} />
-            <Route path='/characters' exact component={Characters} />
-            <Route component={NotFoundComponent} />
-          </Switch>
+          {userLogged && (
+            <Switch>
+              <Route path='/' exact component={Index} />
+              <Route path='/home' exact component={Index} />
+              <Route path='/about' exact component={About} />
+              <Route path='/episodes' exact component={Episodes} />
+              <Route path='/characters' exact component={Characters} />
+              <Route component={NotFoundComponent} />
+            </Switch>
+          )}
+          {!userLogged && (
+            <Switch>
+              <Route path='/' exact component={Index} />
+              <Route path='/home' exact component={Index} />
+              <Route path='/about' exact component={About} />
+              {/* <Route path='/episodes' exact component={Episodes} />
+              <Route path='/characters' exact component={Characters} /> */}
+              <Route component={NotFoundComponent} />
+            </Switch>
+          )}
         </Suspense>
       </div>
     </Router>
   )
 }
+const mapStateToProps = state => {
+  const {
+    userLogged
+  } = state.users
 
-export default AppRouter
+  return {
+    userLogged
+  }
+}
+
+const mapDispatchToProps = {
+  
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AppRouter)

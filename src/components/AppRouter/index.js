@@ -21,7 +21,7 @@ const LoadingComponent = () => <div>Loading...</div>
 
 const AppRouter = (props) => {
   // const [userLogged,setUserLogged] = useState(true)
-  const { userLogged } = props
+  const { userLogged, user } = props
   return (
     <Router>
       <div className='main-container'>
@@ -30,24 +30,29 @@ const AppRouter = (props) => {
             <Link to='/home'>Rick and Morty</Link>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
-          <Navbar.Collapse id='basic-navbar-nav'>
-            {!userLogged && (
+          {!userLogged && (
+            <Navbar.Collapse id='basic-navbar-nav'>
               <Nav className='mr-auto'>
                 <NavLink activeClassName='active' to='/home' className='nav-link'>{Dictionary.home}</NavLink>
                 {/* <NavLink activeClassName='active' to='/episodes' className='nav-link'>Episodes</NavLink>
                 <NavLink activeClassName='active' to='/characters' className='nav-link'>Characters</NavLink> */}
                 <NavLink activeClassName='active' to='/about' className='nav-link'>{Dictionary.about}</NavLink>
               </Nav>
-            )}
-            {userLogged && (
+            </Navbar.Collapse>
+          )}
+          {userLogged && (
+            <Navbar.Collapse id='basic-navbar-nav'>
               <Nav className='mr-auto'>
                 <NavLink activeClassName='active' to='/home' className='nav-link'>{Dictionary.home}</NavLink>
                 <NavLink activeClassName='active' to='/episodes' className='nav-link'>Episodes</NavLink>
                 <NavLink activeClassName='active' to='/characters' className='nav-link'>Characters</NavLink>
                 <NavLink activeClassName='active' to='/about' className='nav-link'>{Dictionary.about}</NavLink>
               </Nav>
-            )}
-          </Navbar.Collapse>
+              <Navbar.Text>
+                Signed in as: <b>{user.email}</b>
+              </Navbar.Text>
+            </Navbar.Collapse>
+          )}
         </Navbar>
         <Suspense fallback={LoadingComponent}>
           {userLogged && (
@@ -77,11 +82,13 @@ const AppRouter = (props) => {
 }
 const mapStateToProps = state => {
   const {
-    userLogged
+    userLogged,
+    user
   } = state.users
 
   return {
-    userLogged
+    userLogged,
+    user
   }
 }
 

@@ -7,7 +7,7 @@ import ListGroup from 'react-bootstrap/ListGroup'
 import nullRick from '../../../assets/images/null-rick.jpeg'
 
 const ImageLoading = () => {
-  return (<img src={nullRick}></img>)
+  return (<img src={nullRick} alt='null-rick'></img>)
 }
 
 const CardCharacter = (props) => {

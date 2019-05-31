@@ -5,6 +5,7 @@ import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 import ListGroup from 'react-bootstrap/ListGroup'
 import nullRick from '../../../assets/images/null-rick.jpeg'
+import Dictionary from '../../../components/Dictionary'
 
 const ImageLoading = () => {
   return (<img src={nullRick} alt='null-rick'></img>)
@@ -12,10 +13,10 @@ const ImageLoading = () => {
 
 const CardCharacter = (props) => {
   const { character, toggleCharacterToFavorite, favorites } = props
-  const textButton = favorites.includes(character.id.toString()) ? '★' : '☆'
+  const textButton = favorites.includes(character.id.toString()) ? Dictionary.fullStar : Dictionary.emptyStar
 
   return (
-    <Card style={{ color: 'black' }} className='mb-3'>
+    <Card border='dark' style={{ color: 'black' }} className='mb-3'>
       <Suspense fallback={<ImageLoading />}>
         <Card.Img variant='top' src={character.image} />
         <Card.ImgOverlay>
@@ -28,9 +29,9 @@ const CardCharacter = (props) => {
         </Card.ImgOverlay>
       </Suspense>
       <ListGroup variant='flush'>
-        <ListGroup.Item>Name: {character.name}</ListGroup.Item>
-        <ListGroup.Item>Species: {character.species}</ListGroup.Item>
-        <ListGroup.Item>Origin: {character.origin.name}</ListGroup.Item>
+        <ListGroup.Item>{Dictionary.name}: {character.name}</ListGroup.Item>
+        <ListGroup.Item>{Dictionary.specie}: {character.species}</ListGroup.Item>
+        <ListGroup.Item>{Dictionary.origin}: {character.origin.name}</ListGroup.Item>
       </ListGroup>
     </Card>
   )

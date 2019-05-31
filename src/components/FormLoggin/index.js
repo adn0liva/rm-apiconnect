@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
 import Alert from 'react-bootstrap/Alert'
+import Dictionary from '../Dictionary'
 
 const FormLoggin = (props) => {
   const { loginSubmit } = props
@@ -17,41 +18,35 @@ const FormLoggin = (props) => {
   return (
     <Card>
       <Card.Body>
-        <h3>Log In</h3>
+        <h3>{Dictionary.logIn}</h3>
         {formWithError === 1 && (
           <Alert variant='warning'>
-            Please Complete the form
+            {Dictionary.pleaseCompleteForm}
           </Alert>
         )}
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId='formBasicEmail'>
-            <Form.Label>Email address</Form.Label>
+            <Form.Label>{Dictionary.emailAddress}</Form.Label>
             <Form.Control
               type='email'
               name='email'
-              placeholder='Enter email'
+              placeholder={Dictionary.emailAddress}
               onChange={handleChange} 
               value={values.email}
             />
-            <Form.Text className='text-muted'>
-              We'll never share your email with anyone else.
-            </Form.Text>
           </Form.Group>
           <Form.Group controlId='formBasicPassword'>
-            <Form.Label>Password</Form.Label>
+            <Form.Label>{Dictionary.password}</Form.Label>
             <Form.Control
             type='password'
             name='password'
-            placeholder='Password'
+            placeholder={Dictionary.password}
             onChange={handleChange} 
             value={values.password}
             />
           </Form.Group>
-          {/* <Form.Group controlId='formBasicChecbox'>
-            <Form.Check type='checkbox' label='Check me out' />
-          </Form.Group> */}
           <Button variant='primary' type='submit'>
-            Submit
+            {Dictionary.submit}
           </Button>
         </Form>
       </Card.Body>

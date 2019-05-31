@@ -6,8 +6,7 @@ import CharacterContainer from '../../containers/CharacterContainer'
 import EpisodesContainer from '../../containers/EpisodesContainer'
 import AboutContainer from '../../containers/AboutContainer'
 import HomeContainer from '../../containers/HomeContainer'
-// import NotFound from '../../components/errorPages/NotFound'
-// ToDo: change favorite add/delete
+import NotFound from '../../components/ErrorPages/NotFound'
 // botstrap
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
@@ -16,7 +15,7 @@ const Index = () => <HomeContainer />
 const About = () => <AboutContainer />
 const Episodes = () => <EpisodesContainer />
 const Characters = () => <CharacterContainer />
-const NotFoundComponent = () => <div>nfound</div>
+const NotFoundComponent = () => <NotFound />
 const LoadingComponent = () => <div>Loading...</div>
 
 const AppRouter = (props) => {
@@ -27,7 +26,7 @@ const AppRouter = (props) => {
       <div className='main-container'>
         <Navbar bg='dark' expand='lg' variant='dark'>
           <Navbar.Brand>
-            <Link to='/home'>Rick and Morty</Link>
+            <Link to='/home'>{Dictionary.rickAndMorty}</Link>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           {!userLogged && (
@@ -44,12 +43,12 @@ const AppRouter = (props) => {
             <Navbar.Collapse id='basic-navbar-nav'>
               <Nav className='mr-auto'>
                 <NavLink activeClassName='active' to='/home' className='nav-link'>{Dictionary.home}</NavLink>
-                <NavLink activeClassName='active' to='/episodes' className='nav-link'>Episodes</NavLink>
-                <NavLink activeClassName='active' to='/characters' className='nav-link'>Characters</NavLink>
+                <NavLink activeClassName='active' to='/episodes' className='nav-link'>{Dictionary.episodes}</NavLink>
+                <NavLink activeClassName='active' to='/characters' className='nav-link'>{Dictionary.characters}</NavLink>
                 <NavLink activeClassName='active' to='/about' className='nav-link'>{Dictionary.about}</NavLink>
               </Nav>
               <Navbar.Text>
-                Signed in as: <b>{user.email}</b>
+                {Dictionary.signedAs}<b>{user.email}</b>
               </Navbar.Text>
             </Navbar.Collapse>
           )}

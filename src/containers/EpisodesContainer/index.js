@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { getEpisodes, loadMore } from '../../redux/episodes/thunks'
 import CardEpisode from '../../components/Episodes/CardEpisode'
+import Dictionary from '../../components/Dictionary'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
@@ -24,7 +25,7 @@ const EpisodesContainer = (props) => {
           {error}
         </Col>
         <Col md={12} xs={12}>
-          <h2>Episodes ({episodes.length})</h2>
+          <h2>{Dictionary.episodes} ({episodes.length})</h2>
         </Col>
         {episodes.map((episode, index) => (
           <Col md={3} key={`col-ch-${index}`}>
@@ -35,7 +36,7 @@ const EpisodesContainer = (props) => {
 
       {currentPage < maxPage && (
         <button onClick={loadMore} className='btn btn-sm btn-primary'>
-          {loading ? (<span className='spinner-border spinner-border-sm' role='status' aria-hidden='true' />) : 'Ver más'}
+          {loading ? (<span className='spinner-border spinner-border-sm' role='status' aria-hidden='true' />) : Dictionary.showMore}
         </button>
       )}
       <br />

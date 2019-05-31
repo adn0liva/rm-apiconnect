@@ -1,13 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { toggleEpisodeToFavorite } from '../../../redux/episodes'
+import Dictionary from '../../../components/Dictionary'
 import Card from 'react-bootstrap/Card'
 import ListGroup from 'react-bootstrap/ListGroup'
 import Button from 'react-bootstrap/Button'
 
 const CardEpisode = (props) => {
   const { episode, toggleEpisodeToFavorite, favorites } = props
-  const textButton = favorites.includes(episode.id.toString()) ? '★' : '☆'
+  const textButton = favorites.includes(episode.id.toString()) ? Dictionary.fullStar : Dictionary.emptyStar
   return (
     <Card style={{ color: 'black' }} className='mb-3'>
       <Card.Header>
@@ -19,9 +20,9 @@ const CardEpisode = (props) => {
         >{textButton}</Button>
       </Card.Header>
       <ListGroup variant='flush'>
-        <ListGroup.Item>air date: {episode.air_date}</ListGroup.Item>
-        <ListGroup.Item>created: {episode.created}</ListGroup.Item>
-        <ListGroup.Item>episode: {episode.episode}</ListGroup.Item>
+        <ListGroup.Item>{Dictionary.airDate}: {episode.air_date}</ListGroup.Item>
+        <ListGroup.Item>{Dictionary.created}: {episode.created}</ListGroup.Item>
+        <ListGroup.Item>{Dictionary.episode}: {episode.episode}</ListGroup.Item>
       </ListGroup>
     </Card>
   )

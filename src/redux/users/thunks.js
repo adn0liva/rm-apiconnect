@@ -1,3 +1,4 @@
+import axios from 'axios'
 import {
   loginSuccess,
   loginError
@@ -15,9 +16,24 @@ export const fakeLogin = (user,state) => {
   return userId
 }
 
+export const realLogin = async (user) => {
+  const baseApiUrl = 'http://190.215.33.13:1993/api/v1/user/search'
+  const response = await axios({
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*'
+    },
+    url: baseApiUrl,
+    data: {email: user.email, password: user.password}
+  })
+  console.log(response)
+}
+
 export const login = ({ email, password }) => async (dispatch, getState) => {
   try {
     const userId = fakeLogin({ email, password }, getState())
+    realLogin({ email, password })
     if (userId) {
       dispatch(loginSuccess(userId))
     } else {

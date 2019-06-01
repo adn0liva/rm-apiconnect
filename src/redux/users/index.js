@@ -4,6 +4,25 @@ const LOGIN_USER = 'LOGIN_USER'
 const LOGIN_ERROR = 'LOGIN_ERROR'
 const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 
+const TOGGLE_SIGNUP = 'TOGGLE_SIGNUP'
+
+const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS'
+const SIGNUP_ERROR = 'SIGNUP_ERROR'
+
+export const signUpSuccess = (result) => ({
+  type: SIGNUP_SUCCESS,
+  payload: { result }
+})
+
+export const signUpError = (error) => ({
+  type: SIGNUP_ERROR,
+  payload: { error }
+})
+
+export const toggleSignUp = () => ({
+  type: TOGGLE_SIGNUP
+})
+
 export const changeStateUser = () => ({
   type: CHANGE_STATE_USER
 })
@@ -29,11 +48,12 @@ const initialState = {
   entities: {
     '1': { name: 'adan', email: 'aoliva@binarybag.com', password: '123' },
     '2': { name: 'carlos', email: 'carlos@binarybag.com', password: '123' },
-    '3': { name: 'diego', email: 'diego@binarybag.com', password: '123' },
+    '3': { name: 'diego', email: 'diego@binarybag.com', password: '123' }
   },
-  userList: ['1','2','3'],
+  userList: ['1', '2', '3'],
   userId: null,
-  errorLogin: null
+  errorLogin: null,
+  registerView: false
 }
 
 export default (state = initialState, action) => {
@@ -67,6 +87,39 @@ export default (state = initialState, action) => {
       return {
         ...state,
         errorLogin: error === undefined ? 'Usuario no encontrado' : error
+      }
+    }
+    case TOGGLE_SIGNUP: {
+      return {
+        ...state,
+        registerView: !state.registerView
+      }
+    }
+    case SIGNUP_SUCCESS: {
+      const {
+        entities,
+        userList
+      } = state
+      const { user } = action.payload.result
+      return {
+        ...state,
+        entities: {
+          ...entities,
+          [user.id]: {
+            ...user
+          }
+        },
+        userList: [...userList, user.id],
+        errorLogin: null,
+        userId: user.id,
+        userLogged: true,
+        user: { ...user }
+      }
+    }
+    case SIGNUP_ERROR: {
+      return {
+        ...state,
+        errorLogin: action.payload.error
       }
     }
     default: return state

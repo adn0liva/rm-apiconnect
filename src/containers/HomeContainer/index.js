@@ -6,11 +6,20 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Alert from 'react-bootstrap/Alert'
 import FormLoggin from '../../components/FormLoggin'
-import { login } from '../../redux/users/thunks'
+import { login, signUp } from '../../redux/users/thunks'
+import { toggleSignUp } from '../../redux/users'
 import Dictionary from '../../components/Dictionary'
+import FormSignUp from '../../components/FormSignUp'
 
 const HomeContainer = (props) => {
-  const { userLogged, login, errorLogin } = props
+  const {
+    userLogged,
+    login,
+    errorLogin,
+    registerView,
+    toggleSignUp,
+    signUp
+  } = props
   return (
     <div>
       <Jumbotron style={{ color: 'black' }}>
@@ -29,7 +38,12 @@ const HomeContainer = (props) => {
             {errorLogin !== null && (
               <Alert variant='danger'>{errorLogin}</Alert>
             )}
-            <FormLoggin loginSubmit={login} />
+            {!registerView && (
+              <FormLoggin loginSubmit={login} toggleSignUp={toggleSignUp} />
+            )}
+            {registerView && (
+              <FormSignUp signUpSubmit={signUp} toggleSignUp={toggleSignUp} />
+            )}
           </Col>
         </Row>
       )}
@@ -41,16 +55,20 @@ const mapStateToProps = state => {
   const {
     userLogged,
     errorLogin,
+    registerView
   } = state.users
 
   return {
     userLogged,
-    errorLogin
+    errorLogin,
+    registerView
   }
 }
 
 const mapDispatchToProps = {
-  login
+  login,
+  signUp,
+  toggleSignUp
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeContainer)

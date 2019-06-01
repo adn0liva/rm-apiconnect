@@ -40,7 +40,9 @@ export default {
     password: 'Password',
     submit: 'Submit',
     emptyStar: '☆',
-    fullStar: '★'
+    fullStar: '★',
+    signUp: 'Sign Up',
+    confirmPassword: 'Confirm password'
   },
   es: {
     name: 'Nombre',

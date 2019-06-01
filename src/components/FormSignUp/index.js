@@ -6,23 +6,27 @@ import Card from 'react-bootstrap/Card'
 import Alert from 'react-bootstrap/Alert'
 import Dictionary from '../Dictionary'
 
-const FormLoggin = (props) => {
-  const { loginSubmit, toggleSignUp } = props
-  const userObject = { email: '', password: '' }
+const FormSignUp = (props) => {
+  const { signUpSubmit, toggleSignUp } = props
+  const userObject = {
+    name: '',
+    email: '',
+    password: ''
+  }
   const [formWithError, setErrorMessage] = useState(0)
   const {
     values,
     handleChange,
     handleSubmit
-  } = useForm(() => loginSubmit(values), userObject, setErrorMessage)
+  } = useForm(() => signUpSubmit(values), userObject, setErrorMessage)
   return (
     <Card>
       <Card.Header>
-        {Dictionary.logIn}
+        {Dictionary.signUp}
         <Button
           className='float-right'
           onClick={() => toggleSignUp()}
-        >Sign up</Button>
+        >{Dictionary.back}</Button>
       </Card.Header>
       <Card.Body>
         {formWithError === 1 && (
@@ -31,13 +35,23 @@ const FormLoggin = (props) => {
           </Alert>
         )}
         <Form onSubmit={handleSubmit}>
+          <Form.Group controlId='formBasicName'>
+            <Form.Label>{Dictionary.name}</Form.Label>
+            <Form.Control
+              type='name'
+              name='name'
+              placeholder={Dictionary.name}
+              onChange={handleChange}
+              value={values.name}
+            />
+          </Form.Group>
           <Form.Group controlId='formBasicEmail'>
             <Form.Label>{Dictionary.emailAddress}</Form.Label>
             <Form.Control
               type='email'
               name='email'
               placeholder={Dictionary.emailAddress}
-              onChange={handleChange} 
+              onChange={handleChange}
               value={values.email}
             />
           </Form.Group>
@@ -47,11 +61,11 @@ const FormLoggin = (props) => {
               type='password'
               name='password'
               placeholder={Dictionary.password}
-              onChange={handleChange} 
+              onChange={handleChange}
               value={values.password}
             />
           </Form.Group>
-          <Button variant='primary' type='submit'>
+          <Button variant='success' type='submit'>
             {Dictionary.submit}
           </Button>
         </Form>
@@ -60,4 +74,4 @@ const FormLoggin = (props) => {
   )
 }
 
-export default FormLoggin
+export default FormSignUp

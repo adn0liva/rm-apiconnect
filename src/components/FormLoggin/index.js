@@ -24,7 +24,7 @@ const FormLoggin = (props) => {
             {Dictionary.pleaseCompleteForm}
           </Alert>
         )}
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit} autocomplete='off'>
           <Form.Group controlId='formBasicEmail'>
             <Form.Label>{Dictionary.emailAddress}</Form.Label>
             <Form.Control
@@ -33,6 +33,7 @@ const FormLoggin = (props) => {
               placeholder={Dictionary.emailAddress}
               onChange={handleChange} 
               value={values.email}
+              autocomplete='off'
             />
           </Form.Group>
           <Form.Group controlId='formBasicPassword'>

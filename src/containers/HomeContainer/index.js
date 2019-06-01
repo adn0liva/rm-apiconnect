@@ -4,12 +4,13 @@ import Jumbotron from 'react-bootstrap/Jumbotron'
 import { Link } from 'react-router-dom'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import Alert from 'react-bootstrap/Alert'
 import FormLoggin from '../../components/FormLoggin'
-import { loginUser } from '../../redux/users'
+import { login } from '../../redux/users/thunks'
 import Dictionary from '../../components/Dictionary'
 
 const HomeContainer = (props) => {
-  const { userLogged, loginUser } = props
+  const { userLogged, login, errorLogin } = props
   return (
     <div>
       <Jumbotron style={{ color: 'black' }}>
@@ -23,9 +24,12 @@ const HomeContainer = (props) => {
         )}
       </Jumbotron>
       {!userLogged && (
-        <Row className='px-3'>
+        <Row className='px-3 mx-0'>
           <Col md={6}>
-            <FormLoggin loginSubmit={loginUser} />
+            {errorLogin !== null && (
+              <Alert variant='danger'>{errorLogin}</Alert>
+            )}
+            <FormLoggin loginSubmit={login} />
           </Col>
         </Row>
       )}
@@ -35,16 +39,18 @@ const HomeContainer = (props) => {
 
 const mapStateToProps = state => {
   const {
-    userLogged
+    userLogged,
+    errorLogin,
   } = state.users
 
   return {
-    userLogged
+    userLogged,
+    errorLogin
   }
 }
 
 const mapDispatchToProps = {
-  loginUser
+  login
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeContainer)

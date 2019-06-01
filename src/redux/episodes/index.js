@@ -8,9 +8,9 @@ const GET_MORE_EPISODES_FAIL = 'GET_MORE_EPISODES_FAIL'
 
 const TOGGLE_EPISODE_TO_FAVORITE = 'TOGGLE_EPISODE_TO_FAVORITE'
 
-export const toggleEpisodeToFavorite = (id) => ({
+export const toggleEpisodeToFavorite = (id, userId) => ({
   type: TOGGLE_EPISODE_TO_FAVORITE,
-  payload: { id }
+  payload: { id, userId }
 })
 
 export const getEpisodesRequest = () => ({ type: GET_EPISODES_REQUEST })
@@ -46,18 +46,29 @@ export const getMoreEpisodesFail = (error) => ({
   }
 })
 
-const modifyFavorites = (list, id) => {
+const modifyFavorites = (list, userId, episodeId) => {
   let newFavorites = []
-  if (list.includes(id)) {
-    newFavorites = list.filter(id_ => id_ !== id)
+  if (list[userId].includes(episodeId)) {
+    newFavorites = list[userId].filter(id_ => id_ !== episodeId)
   } else {
-    newFavorites = [...list, id]
+    newFavorites = [...list[userId], episodeId]
   }
-  return newFavorites
+  return {
+    ...list,
+    [userId]: newFavorites
+  }
 }
 let localStorage = window.localStorage
-const favoritesStored = localStorage.getItem('favoritesEpisodes') || ''
-const favArray = favoritesStored.split(',').filter(el => (el !== ""))
+let favoritesStored = JSON.parse(localStorage.getItem('favoritesEpisodes'))
+// si no hay nada creo uno vacio
+if (favoritesStored === null) {
+  favoritesStored = {
+    '1': [],
+    '2': [],
+    '3': []
+  }
+}
+// const favArray = favoritesStored.split(',').filter(el => (el !== ''))
 const initialState = {
   entities: [],
   loading: false,
@@ -65,7 +76,7 @@ const initialState = {
   currentPage: 1,
   nextPage: '',
   error: null,
-  favorites: [...favArray]
+  favorites: favoritesStored
 }
 
 export default (state = initialState, action) => {
@@ -125,8 +136,8 @@ export default (state = initialState, action) => {
       }
     }
     case TOGGLE_EPISODE_TO_FAVORITE: {
-      const newFavorites = modifyFavorites(state.favorites, action.payload.id.toString())
-      localStorage.setItem('favoritesEpisodes', newFavorites)
+      const newFavorites = modifyFavorites(state.favorites, action.payload.userId, action.payload.id.toString())
+      localStorage.setItem('favoritesEpisodes', JSON.stringify(newFavorites))
       return {
         ...state,
         favorites: newFavorites

@@ -5,11 +5,11 @@ const GET_CHARACTERS_FAIL = 'GET_CHARACTERS_FAIL'
 const GET_MORE_CHARACTERS = 'GET_MORE_CHARACTERS'
 const GET_MORE_CHARACTERS_SUCCESS = 'GET_MORE_CHARACTERS_SUCCESS'
 const GET_MORE_CHARACTERS_FAIL = 'GET_MORE_CHARACTERS_FAIL'
-const TOGGLE_EPISODE_TO_FAVORITE = 'TOGGLE_EPISODE_TO_FAVORITE'
+const TOGGLE_CHARACTER_TO_FAVORITE = 'TOGGLE_CHARACTER_TO_FAVORITE'
 
-export const toggleCharacterToFavorite = (id) => ({
-  type: TOGGLE_EPISODE_TO_FAVORITE,
-  payload: { id }
+export const toggleCharacterToFavorite = (id, userId) => ({
+  type: TOGGLE_CHARACTER_TO_FAVORITE,
+  payload: { id, userId }
 })
 
 export const getCharactersRequest = () => ({ type: GET_CHARACTERS_REQUEST })
@@ -44,19 +44,29 @@ export const getMoreCharactersFail = (error) => ({
     error
   }
 })
-const modifyFavorites = (list, id) => {
+const modifyFavorites = (list, userId, charId) => {
   let newFavorites = []
-  if (list.includes(id)) {
-    newFavorites = list.filter(id_ => id_ !== id)
+  if (list[userId].includes(charId)) {
+    newFavorites = list[userId].filter(id_ => id_ !== charId)
   } else {
-    newFavorites = [...list, id]
+    newFavorites = [...list[userId], charId]
   }
-  return newFavorites
+  return {
+    ...list,
+    [userId]: newFavorites
+  }
 }
 
 let localStorage = window.localStorage
-const favoritesStored = localStorage.getItem('favoritesCharacters') || ''
-const favArray = favoritesStored.split(',').filter(el => (el !== ""))
+let favoritesStored = JSON.parse(localStorage.getItem('favoritesCharacters'))
+// si no hay nada creo uno vacio
+if (favoritesStored === null) {
+  favoritesStored = {
+    '1': [],
+    '2': [],
+    '3': []
+  }
+}
 const initialState = {
   entities: [],
   loading: false,
@@ -64,7 +74,7 @@ const initialState = {
   currentPage: 1,
   nextPage: '',
   error: null,
-  favorites: [...favArray]
+  favorites: favoritesStored
 }
 
 export default (state = initialState, action) => {
@@ -123,9 +133,9 @@ export default (state = initialState, action) => {
         error: action.payload.error
       }
     }
-    case TOGGLE_EPISODE_TO_FAVORITE: {
-      const newFavorites = modifyFavorites(state.favorites, action.payload.id)
-      localStorage.setItem('favoritesCharacters', newFavorites)
+    case TOGGLE_CHARACTER_TO_FAVORITE: {
+      const newFavorites = modifyFavorites(state.favorites, action.payload.userId, action.payload.id)
+      localStorage.setItem('favoritesCharacters', JSON.stringify(newFavorites))
       return {
         ...state,
         favorites: newFavorites

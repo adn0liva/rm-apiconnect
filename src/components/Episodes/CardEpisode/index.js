@@ -7,7 +7,7 @@ import ListGroup from 'react-bootstrap/ListGroup'
 import Button from 'react-bootstrap/Button'
 
 const CardEpisode = (props) => {
-  const { episode, toggleEpisodeToFavorite, favorites } = props
+  const { episode, toggleEpisodeToFavorite, favorites, user } = props
   const textButton = favorites.includes(episode.id.toString()) ? Dictionary.fullStar : Dictionary.emptyStar
   return (
     <Card style={{ color: 'black' }} className='mb-3'>
@@ -16,7 +16,7 @@ const CardEpisode = (props) => {
         <Button
           variant='warning'
           className='float-right'
-          onClick={() => toggleEpisodeToFavorite(episode.id)}
+          onClick={() => toggleEpisodeToFavorite(episode.id, user.id)}
         >{textButton}</Button>
       </Card.Header>
       <ListGroup variant='flush'>
@@ -32,9 +32,13 @@ const mapStateToProps = state => {
   const {
     favorites
   } = state.episodes
+  const {
+    user
+  } = state.users
 
   return {
-    favorites
+    favorites: favorites[user.id],
+    user
   }
 }
 

@@ -52,9 +52,9 @@ const initialState = {
   userLogged: false,
   user: {},
   entities: {
-    '1': { name: 'adan', email: 'aoliva@binarybag.com', password: '123' },
-    '2': { name: 'carlos', email: 'carlos@binarybag.com', password: '123' },
-    '3': { name: 'diego', email: 'diego@binarybag.com', password: '123' }
+    '1': { id: '1', name: 'adan', email: 'aoliva@binarybag.com', password: '123' },
+    '2': { id: '2', name: 'carlos', email: 'carlos@binarybag.com', password: '123' },
+    '3': { id: '3', name: 'diego', email: 'diego@binarybag.com', password: '123' }
   },
   userList: ['1', '2', '3'],
   userId: null,

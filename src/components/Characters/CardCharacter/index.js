@@ -12,7 +12,7 @@ const ImageLoading = () => {
 }
 
 const CardCharacter = (props) => {
-  const { character, toggleCharacterToFavorite, favorites } = props
+  const { character, toggleCharacterToFavorite, favorites, user } = props
   const textButton = favorites.includes(character.id.toString()) ? Dictionary.fullStar : Dictionary.emptyStar
 
   return (
@@ -23,7 +23,7 @@ const CardCharacter = (props) => {
           <Card.Text className='float-right'>
             <Button
               variant='warning'
-              onClick={() => toggleCharacterToFavorite(character.id.toString())}
+              onClick={() => toggleCharacterToFavorite(character.id.toString(), user.id)}
             >{textButton}</Button>
           </Card.Text>
         </Card.ImgOverlay>
@@ -41,9 +41,13 @@ const mapStateToProps = state => {
   const {
     favorites
   } = state.characters
+  const {
+    user
+  } = state.users
 
   return {
-    favorites
+    favorites: favorites[user.id],
+    user
   }
 }
 

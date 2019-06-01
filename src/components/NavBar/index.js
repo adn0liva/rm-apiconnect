@@ -2,12 +2,14 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { NavLink, Link } from 'react-router-dom'
 import Dictionary from '../Dictionary'
+import { logOut } from '../../redux/users'
 // botstrap
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
+import Button from 'react-bootstrap/Button'
 
 const NavBarComponent = (props) => {
-  const { userLogged, user } = props
+  const { userLogged, user, logOut } = props
   return (
     <Navbar bg='dark' expand='lg' variant='dark'>
       <Navbar.Brand>
@@ -31,7 +33,8 @@ const NavBarComponent = (props) => {
             <NavLink activeClassName='active' to='/about' className='nav-link'>{Dictionary.about}</NavLink>
           </Nav>
           <Navbar.Text>
-            {Dictionary.signedAs}<b>{user.name}</b>
+            {Dictionary.signedAs}<b>{user.name}  </b>
+            <Button variant='secondary' onClick={() => logOut()}>{Dictionary.logOut}</Button>
           </Navbar.Text>
         </Navbar.Collapse>
       )}
@@ -51,4 +54,8 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(NavBarComponent)
+const mapDispatchToProps = {
+  logOut
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavBarComponent)

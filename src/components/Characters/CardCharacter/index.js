@@ -8,7 +8,7 @@ import nullRick from '../../../assets/images/null-rick.jpeg'
 import Dictionary from '../../../components/Dictionary'
 
 const ImageLoading = () => {
-  return (<img src={nullRick} alt='null-rick'></img>)
+  return (<img src={nullRick} alt='null-rick' />)
 }
 
 const CardCharacter = (props) => {

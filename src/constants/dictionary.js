@@ -42,7 +42,8 @@ export default {
     emptyStar: '☆',
     fullStar: '★',
     signUp: 'Sign Up',
-    confirmPassword: 'Confirm password'
+    confirmPassword: 'Confirm password',
+    logOut: 'Log out'
   },
   es: {
     name: 'Nombre',

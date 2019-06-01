@@ -9,6 +9,12 @@ const TOGGLE_SIGNUP = 'TOGGLE_SIGNUP'
 const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS'
 const SIGNUP_ERROR = 'SIGNUP_ERROR'
 
+const LOGOUT = 'LOGOUT'
+
+export const logOut = () => ({
+  type: LOGOUT
+})
+
 export const signUpSuccess = (result) => ({
   type: SIGNUP_SUCCESS,
   payload: { result }
@@ -27,9 +33,9 @@ export const changeStateUser = () => ({
   type: CHANGE_STATE_USER
 })
 
-export const loginUser = (user) => ({
+export const loginUser = (userId) => ({
   type: LOGIN_USER,
-  payload: { user }
+  payload: { userId }
 })
 
 export const loginSuccess = (userId) => ({
@@ -65,16 +71,18 @@ export default (state = initialState, action) => {
       }
     }
     case LOGIN_USER: {
-      const { user } = action.payload
+      const { userId } = action.payload
+      const { entities } = state
       return {
         ...state,
-        user,
+        user: entities[userId],
         userLogged: true
       }
     }
     case LOGIN_SUCCESS: {
       const { userId } = action.payload
       const { entities } = state
+      localStorage.setItem('userId', userId)
       return {
         ...state,
         userId,
@@ -120,6 +128,15 @@ export default (state = initialState, action) => {
       return {
         ...state,
         errorLogin: action.payload.error
+      }
+    }
+    case LOGOUT: {
+      localStorage.removeItem('userId')
+      return {
+        ...state,
+        user: {},
+        userId: null,
+        userLogged: false
       }
     }
     default: return state

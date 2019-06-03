@@ -11,6 +11,16 @@ const SIGNUP_ERROR = 'SIGNUP_ERROR'
 
 const LOGOUT = 'LOGOUT'
 
+const GET_FAVORITES = 'GET_FAVORITES'
+
+export const getFavorites = (kind,favoritos) => ({
+  type: GET_FAVORITES,
+  payload: { 
+    kind,
+    favoritos
+  }
+})
+
 export const logOut = () => ({
   type: LOGOUT
 })
@@ -48,6 +58,18 @@ export const loginError = (error) => ({
   payload: { error }
 })
 
+const usuariosGustosSimilares = (favoritos,usuarios,user) => {
+  const idsUsers = Object.keys(favoritos)
+  const misFavoritos = favoritos[user.id]
+  let usersSimilares = []
+  idsUsers.forEach(idUser => {
+    if (misFavoritos.some(fav => favoritos[idUser].includes(fav)) && idUser !== user.id){
+      usersSimilares.push(idUser)
+    }
+  })
+  return usersSimilares
+}
+
 const initialState = {
   userLogged: false,
   user: {},
@@ -59,7 +81,9 @@ const initialState = {
   userList: ['1', '2', '3'],
   userId: null,
   errorLogin: null,
-  registerView: false
+  registerView: false,
+  usersEpisodes: [],
+  usersCharacters: [],
 }
 
 export default (state = initialState, action) => {
@@ -139,6 +163,17 @@ export default (state = initialState, action) => {
         userLogged: false
       }
     }
+    case GET_FAVORITES: {
+      const { entities: usuarios, user } = state
+      const { favoritos, kind } = action.payload
+      const respuesta = usuariosGustosSimilares(favoritos,usuarios,user)
+      let newState = {
+        ...state
+      }
+      newState[`users${kind}`] = respuesta
+      return newState
+    }
     default: return state
   }
 }
+

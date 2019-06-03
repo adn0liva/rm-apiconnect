@@ -30,7 +30,7 @@ export default {
     rickAndMorty: 'Rick and Morty',
     episodes: 'Episodes',
     characters: 'Characters',
-    signedAs: 'Signed in as: ',
+    signedAs: 'Signed as: ',
     airDate: 'Air date',
     created: 'Created',
     episode: 'Episode',
@@ -44,7 +44,10 @@ export default {
     signUp: 'Sign Up',
     confirmPassword: 'Confirm password',
     logOut: 'Log out',
-    favorites: 'Favorites'
+    favorites: 'Favorites',
+    episodesAsFavorites: 'Episodes selected as favorites',
+    charactersAsFavorites: 'Characters selected as favorites',
+    basedInFavoritesUsers: 'Based in your favorites, we find users like you'
   },
   es: {
     name: 'Nombre',
@@ -85,7 +88,15 @@ export default {
     logIn: 'Iniciar sesión',
     emailAddress: 'Dirección de email',
     password: 'Contraseña',
-    submit: 'Enviar'
-
+    submit: 'Enviar',
+    emptyStar: '☆',
+    fullStar: '★',
+    signUp: 'Sign Up',
+    confirmPassword: 'Confirm password',
+    logOut: 'Log out',
+    favorites: 'Favorites',
+    episodesAsFavorites: 'Episodes selected as favorites',
+    charactersAsFavorites: 'Characters selected as favorites',
+    basedInFavoritesUsers: 'En base a lo anterior identificamos a los siguientes usuarios que tienen gustos similares'
   }
 }

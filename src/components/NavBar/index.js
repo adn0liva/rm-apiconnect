@@ -1,19 +1,30 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { NavLink, Link } from 'react-router-dom'
 import Dictionary from '../Dictionary'
 import { logOut } from '../../redux/users'
+import Logo from '../../assets/images/logo-rm.png'
+import { loginUser } from '../../redux/users'
 // botstrap
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import Button from 'react-bootstrap/Button'
 
 const NavBarComponent = (props) => {
-  const { userLogged, user, logOut } = props
+  const { userLogged, user, logOut, loginUser } = props
+  const userId = localStorage.getItem('userId')
+  useEffect(() => {
+    if (userId) {
+      loginUser(userId)
+    }
+  }, [])
   return (
     <Navbar bg='dark' expand='lg' variant='dark'>
       <Navbar.Brand>
-        <Link to='/home'>{Dictionary.rickAndMorty}</Link>
+        <Link to='/home'>
+          <img src={Logo} style={{width: '100px'}}/>
+        </Link>
+
       </Navbar.Brand>
       <Navbar.Toggle aria-controls='basic-navbar-nav' />
       {!userLogged && (
@@ -56,7 +67,8 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-  logOut
+  logOut,
+  loginUser
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavBarComponent)

@@ -7,7 +7,7 @@ import Col from 'react-bootstrap/Col'
 import Alert from 'react-bootstrap/Alert'
 import FormLoggin from '../../components/FormLoggin'
 import { login, signUp } from '../../redux/users/thunks'
-import { toggleSignUp, loginUser } from '../../redux/users'
+import { toggleSignUp } from '../../redux/users'
 import Dictionary from '../../components/Dictionary'
 import FormSignUp from '../../components/FormSignUp'
 
@@ -18,16 +18,9 @@ const HomeContainer = (props) => {
     errorLogin,
     registerView,
     toggleSignUp,
-    signUp,
-    loginUser
+    signUp
   } = props
 
-  const userId = localStorage.getItem('userId')
-  useEffect(() => {
-    if (userId) {
-      loginUser(userId)
-    }
-  }, [])
   return (
     <div>
       <Jumbotron style={{ color: 'black' }}>
@@ -76,8 +69,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
   login,
   signUp,
-  toggleSignUp,
-  loginUser
+  toggleSignUp
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeContainer)

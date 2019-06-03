@@ -1,3 +1,4 @@
+import usersBase from '../../constants/users'
 const CHANGE_STATE_USER = 'CHANGE_STATE_USER'
 const LOGIN_USER = 'LOGIN_USER'
 // const FAKE_LOGIN = 'FAKE_LOGIN'
@@ -73,11 +74,7 @@ const usuariosGustosSimilares = (favoritos,usuarios,user) => {
 const initialState = {
   userLogged: false,
   user: {},
-  entities: {
-    '1': { id: '1', name: 'adan', email: 'aoliva@binarybag.com', password: '123' },
-    '2': { id: '2', name: 'carlos', email: 'carlos@binarybag.com', password: '123' },
-    '3': { id: '3', name: 'diego', email: 'diego@binarybag.com', password: '123' }
-  },
+  entities: usersBase,
   userList: ['1', '2', '3'],
   userId: null,
   errorLogin: null,

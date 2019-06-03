@@ -21,7 +21,7 @@ const NavBarComponent = (props) => {
   return (
     <Navbar bg='dark' expand='lg' variant='dark'>
       <Navbar.Brand>
-        <Link to='/home'>
+        <Link to='rm-apiconnect/home'>
           <img src={Logo} style={{width: '100px'}} alt='logo' />
         </Link>
 

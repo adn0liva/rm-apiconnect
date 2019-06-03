@@ -43,7 +43,8 @@ export default {
     fullStar: '★',
     signUp: 'Sign Up',
     confirmPassword: 'Confirm password',
-    logOut: 'Log out'
+    logOut: 'Log out',
+    favorites: 'Favorites'
   },
   es: {
     name: 'Nombre',

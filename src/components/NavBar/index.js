@@ -30,6 +30,7 @@ const NavBarComponent = (props) => {
             <NavLink activeClassName='active' to='/home' className='nav-link'>{Dictionary.home}</NavLink>
             <NavLink activeClassName='active' to='/episodes' className='nav-link'>{Dictionary.episodes}</NavLink>
             <NavLink activeClassName='active' to='/characters' className='nav-link'>{Dictionary.characters}</NavLink>
+            <NavLink activeClassName='active' to='/favorites' className='nav-link'>{Dictionary.favorites}</NavLink>
             <NavLink activeClassName='active' to='/about' className='nav-link'>{Dictionary.about}</NavLink>
           </Nav>
           <Navbar.Text>

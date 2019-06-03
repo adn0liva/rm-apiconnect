@@ -4,6 +4,7 @@ import CharacterContainer from '../../containers/CharacterContainer'
 import EpisodesContainer from '../../containers/EpisodesContainer'
 import AboutContainer from '../../containers/AboutContainer'
 import HomeContainer from '../../containers/HomeContainer'
+import FavoritesContainer from '../../containers/FavoritesContainer'
 import NotFound from '../../components/ErrorPages/NotFound'
 import PrivateRoute from '../../components/PrivateRoute'
 import NavBarComponent from '../../components/NavBar'
@@ -13,6 +14,7 @@ const About = () => <AboutContainer />
 const Episodes = () => <EpisodesContainer />
 const Characters = () => <CharacterContainer />
 const NotFoundComponent = () => <NotFound />
+const Favorites = () => <FavoritesContainer />
 const LoadingComponent = () => <div>Loading...</div>
 
 const AppRouter = (props) => {
@@ -27,6 +29,7 @@ const AppRouter = (props) => {
             <Route path='/about' exact component={About} />
             <PrivateRoute path='/episodes' exact component={Episodes} />
             <PrivateRoute path='/characters' exact component={Characters} />
+            <PrivateRoute path='/favorites' exact component={Favorites} />
             <Route component={NotFoundComponent} />
           </Switch>
         </Suspense>

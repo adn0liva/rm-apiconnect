@@ -33,10 +33,14 @@ const FavoritesContainer = (props) => {
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row className='mx-0'>
-                  <Col md={12}>
-                  </Col>
-                  <Col>
+                  <Col md={12} className='mb-3'>
                     En base a lo anterior identificamos a los siguientes usuarios que tienen gustos similares
+                  </Col>
+                  <Col md={6}>
+                    <b>Capitulos</b>
+                  </Col>
+                  <Col md={6}>
+                   <b>Personajes</b>
                   </Col>
                 </Row>
               </ListGroup.Item>

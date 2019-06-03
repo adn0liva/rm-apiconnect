@@ -1,27 +1,23 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { getCharacters, loadMore } from '../../redux/characters/thunks'
-import CardCharacter from '../../components/Characters/CardCharacter'
+import { getEpisodes, loadMore } from '../../redux/episodes/thunks'
+import CardEpisode from '../../components/Episodes/CardEpisode'
 import Dictionary from '../../components/Dictionary'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import '../../assets/css/App.css'
 
-const CharacterContainer = props => {
-  const {
-    getCharacters,
-    loading,
-    characters,
-    error,
-    maxPage,
+const EpisodesContainer = (props) => {
+  const { error,
     currentPage,
-    loadMore
-  } = props
+    maxPage,
+    loadMore,
+    loading,
+    episodes,
+    getEpisodes } = props
 
   useEffect(() => {
-    getCharacters()
+    getEpisodes()
   }, [])
-
   return (
     <div className='App'>
       <Row className='mx-0'>
@@ -29,11 +25,11 @@ const CharacterContainer = props => {
           {error}
         </Col>
         <Col md={12} xs={12}>
-          <h2>{Dictionary.characters} ({characters.length})</h2>
+          <h2>{Dictionary.episodes} ({episodes.length})</h2>
         </Col>
-        {characters.map((character, index) => (
+        {episodes.map((episode, index) => (
           <Col md={3} key={`col-ch-${index}`}>
-            <CardCharacter key={`ch-id${index}`} character={character} />
+            <CardEpisode key={`ch-id${index}`} episode={episode} />
           </Col>
         ))}
       </Row>
@@ -56,11 +52,11 @@ const mapStateToProps = state => {
     error,
     maxPage,
     currentPage
-  } = state.characters
+  } = state.episodes
 
   return {
     loading,
-    characters: entities,
+    episodes: entities,
     error,
     maxPage,
     currentPage
@@ -68,8 +64,8 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-  getCharacters,
+  getEpisodes,
   loadMore
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CharacterContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(EpisodesContainer)

@@ -22,7 +22,7 @@ const NavBarComponent = (props) => {
     <Navbar bg='dark' expand='lg' variant='dark'>
       <Navbar.Brand>
         <Link to='/home'>
-          <img src={Logo} style={{width: '100px'}}/>
+          <img src={Logo} style={{width: '100px'}} alt='logo' />
         </Link>
 
       </Navbar.Brand>

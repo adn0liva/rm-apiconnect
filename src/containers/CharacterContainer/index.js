@@ -5,7 +5,7 @@ import CardCharacter from '../../components/Characters/CardCharacter'
 import Dictionary from '../../components/Dictionary'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import './App.css'
+import '../../assets/css/App.css'
 
 const CharacterContainer = props => {
   const {

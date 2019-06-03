@@ -21,7 +21,7 @@ const NavBarComponent = (props) => {
   return (
     <Navbar bg='dark' expand='lg' variant='dark'>
       <Navbar.Brand>
-        <Link to='rm-apiconnect/home'>
+        <Link to='/home'>
           <img src={Logo} style={{width: '100px'}} alt='logo' />
         </Link>
 
@@ -30,19 +30,19 @@ const NavBarComponent = (props) => {
       {!userLogged && (
         <Navbar.Collapse id='basic-navbar-nav'>
           <Nav className='mr-auto'>
-            <NavLink activeClassName='active' to='rm-apiconnect/home' className='nav-link'>{Dictionary.home}</NavLink>
-            <NavLink activeClassName='active' to='rm-apiconnect/about' className='nav-link'>{Dictionary.about}</NavLink>
+            <NavLink activeClassName='active' to='/home' className='nav-link'>{Dictionary.home}</NavLink>
+            <NavLink activeClassName='active' to='/about' className='nav-link'>{Dictionary.about}</NavLink>
           </Nav>
         </Navbar.Collapse>
       )}
       {userLogged && (
         <Navbar.Collapse id='basic-navbar-nav'>
           <Nav className='mr-auto'>
-            <NavLink activeClassName='active' to='rm-apiconnect/home' className='nav-link'>{Dictionary.home}</NavLink>
-            <NavLink activeClassName='active' to='rm-apiconnect/episodes' className='nav-link'>{Dictionary.episodes}</NavLink>
-            <NavLink activeClassName='active' to='rm-apiconnect/characters' className='nav-link'>{Dictionary.characters}</NavLink>
-            <NavLink activeClassName='active' to='rm-apiconnect/favorites' className='nav-link'>{Dictionary.favorites}</NavLink>
-            <NavLink activeClassName='active' to='rm-apiconnect/about' className='nav-link'>{Dictionary.about}</NavLink>
+            <NavLink activeClassName='active' to='/home' className='nav-link'>{Dictionary.home}</NavLink>
+            <NavLink activeClassName='active' to='/episodes' className='nav-link'>{Dictionary.episodes}</NavLink>
+            <NavLink activeClassName='active' to='/characters' className='nav-link'>{Dictionary.characters}</NavLink>
+            <NavLink activeClassName='active' to='/favorites' className='nav-link'>{Dictionary.favorites}</NavLink>
+            <NavLink activeClassName='active' to='/about' className='nav-link'>{Dictionary.about}</NavLink>
           </Nav>
           <Navbar.Text>
             {Dictionary.signedAs}<b>{user.name}  </b>

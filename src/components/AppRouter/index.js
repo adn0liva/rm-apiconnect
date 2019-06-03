@@ -24,12 +24,12 @@ const AppRouter = (props) => {
         <NavBarComponent />
         <Suspense fallback={LoadingComponent}>
           <Switch>
-            <Route path='rm-apiconnect/' exact component={Index} />
-            <Route path='rm-apiconnect/home' exact component={Index} />
-            <Route path='rm-apiconnect/about' exact component={About} />
-            <PrivateRoute path='rm-apiconnect/episodes' exact component={Episodes} />
-            <PrivateRoute path='rm-apiconnect/characters' exact component={Characters} />
-            <PrivateRoute path='rm-apiconnect/favorites' exact component={Favorites} />
+            <Route path='/' exact component={Index} />
+            <Route path='/home' exact component={Index} />
+            <Route path='/about' exact component={About} />
+            <PrivateRoute path='/episodes' exact component={Episodes} />
+            <PrivateRoute path='/characters' exact component={Characters} />
+            <PrivateRoute path='/favorites' exact component={Favorites} />
             <Route component={NotFoundComponent} />
           </Switch>
         </Suspense>
